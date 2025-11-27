@@ -144,6 +144,45 @@
     animation-delay: 0.5s;
 }
 
+/* Icon float animations */
+@keyframes float {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg))
+            translateY(0px);
+    }
+    50% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg))
+            translateY(-20px);
+    }
+}
+
+@keyframes floatSlow {
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg))
+            translateY(0px) translateX(0px);
+    }
+    33% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg))
+            translateY(-15px) translateX(10px);
+    }
+    66% {
+        transform: translate(-50%, -50%) rotate(var(--rotation, 0deg))
+            translateY(15px) translateX(-10px);
+    }
+}
+
+.animate-float {
+    animation: float var(--duration, 20s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
+.animate-float-slow {
+    animation: floatSlow var(--duration, 25s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+}
+
 .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);

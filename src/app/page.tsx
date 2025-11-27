@@ -2,6 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { IconsBackground } from "~/components/IconsBackground";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 
@@ -13,15 +14,16 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-[#fafafa] text-[#0a0a0a] grid place-items-center px-6 md:px-12 lg:px-20 xl:px-32">
-      <main className="max-w-4xl w-full gap-4 grid place-items-center text-center mx-auto">
+    <div className="relative min-h-screen w-full bg-[#fafafa] text-[#0a0a0a] grid place-items-center px-6 md:px-12 lg:px-20 xl:px-32">
+      <IconsBackground />
+      <main className="relative z-10 max-w-4xl w-full gap-4 grid place-items-center text-center mx-auto">
         {/* Coming Soon Text */}
         <div
           className={cn("opacity-0", {
             "animate-fade-in-up": mounted,
           })}
         >
-          <h1 className="text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-none mb-2">
+          <h1 className="text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-none mb-2 backdrop-blur-lg px-6">
             Coming Soon
           </h1>
         </div>
