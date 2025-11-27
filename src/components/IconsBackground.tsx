@@ -21,7 +21,6 @@ interface IconItem {
   y: number;
   width: number;
   height: number;
-  rotation: number;
   blur: number;
   opacity: number;
   zIndex: number;
