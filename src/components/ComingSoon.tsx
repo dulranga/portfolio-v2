@@ -14,7 +14,7 @@ export default function ComingSoon() {
   }, []);
 
   return (
-    <div className="relative h-screen w-full bg-[#fafafa] text-[#0a0a0a] grid place-items-center px-6 md:px-12 lg:px-20 xl:px-32">
+    <div className="relative h-screen w-full bg-background text-foreground grid place-items-center px-6 md:px-12 lg:px-20 xl:px-32">
       <IconsBackground />
       <main className="relative z-10 max-w-4xl w-full gap-4 grid place-items-center text-center mx-auto backdrop-blur-lg p-6">
         {/* Coming Soon Text */}
@@ -23,14 +23,14 @@ export default function ComingSoon() {
             "animate-fade-in-up": mounted,
           })}
         >
-          <h1 className="text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-none mb-2 ">
+          <h1 className="text-7xl md:text-8xl lg:text-9xl font-extrabold tracking-tight leading-none mb-2">
             Coming Soon
           </h1>
         </div>
 
         {/* Description */}
         <div
-          className={cn("max-w-2xl opacity-0", {
+          className={cn("max-w-2xl opacity-0 text-muted-foreground", {
             "animate-fade-in-up delay-200": mounted,
           })}
         >
@@ -52,7 +52,6 @@ export default function ComingSoon() {
               href="https://linktr.ee/dulranga"
               target="_blank"
               rel="noopener noreferrer"
-              className="blo"
             >
               <span className="text-base font-medium">Linktree</span>
               <ArrowRight />
@@ -74,7 +73,7 @@ export default function ComingSoon() {
 
         {/* Footer Note */}
         <div
-          className={cn("opacity-0", {
+          className={cn("opacity-0 text-muted-foreground", {
             "animate-fade-in delay-400": mounted,
           })}
         >
