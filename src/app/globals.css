@@ -5,34 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --border: oklch(0.922 0 0);
+  --border: oklch(63.009% 0.00007 271.152);
   --muted: oklch(0.97 0 0);
   --radius: 0.625rem;
-
-  /* --- Mapped Design Colors (Light Mode) --- */
-  /* Primary Background: Light Gray / Off-White (#f7f7f7) ~ oklch(0.98 0 0) */
   --background: oklch(0.98 0 0);
   --card: oklch(0.98 0 0);
-
-  /* Text Dark: Black/Near Black (#1e1e1e) ~ oklch(0.145 0 0) */
   --foreground: oklch(0.145 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(
-    0.145 0 0
-  ); /* Used for Contact Me button background (Black) */
-  --primary-foreground: oklch(0.985 0 0); /* White text on Primary */
+  --primary: oklch(0.145 0 0);
+  --primary-foreground: oklch(0.985 0 0);
 
-  /* Dark Card: Deep Charcoal / Dark Blue-Gray (#282a36) ~ oklch(0.20 0.005 250) */
-  --design-dark-card: oklch(0.2 0.005 250);
-
-  /* Secondary Accent: Vivid Yellow/Mustard (#ffc107) ~ oklch(0.85 0.15 88) */
-  --design-yellow: oklch(0.85 0.15 88);
-
-  /* Interactive Blue: Bright Cyan/Blue (#00bcd4) ~ oklch(0.66 0.12 210) */
-  --design-cyan: oklch(0.66 0.12 210);
-
-  /* --- Unchanged/Defaults --- */
   --popover: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -58,26 +41,13 @@
 }
 
 .dark {
-  /* --- Mapped Design Colors (Dark Mode) --- */
-  /* Reversing Text/Background Colors */
-  --background: oklch(0.145 0 0); /* Dark Background */
-  --foreground: oklch(0.985 0 0); /* Light Text */
-
-  /* Dark Card: Deep Charcoal / Dark Blue-Gray (#282a36) ~ oklch(0.20 0.005 250) */
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
   --card: oklch(0.2 0.005 250);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.2 0.005 250);
+  --primary: oklch(100% 0 0);
 
-  /* Primary Button: Black/Near Black (#1e1e1e) ~ oklch(0.145 0 0) - Used for buttons/accents */
-  --primary: oklch(0.145 0 0);
-
-  /* Secondary Accent: Vivid Yellow/Mustard (#ffc107) ~ oklch(0.85 0.15 88) */
-  --design-yellow: oklch(0.85 0.15 88);
-
-  /* Interactive Blue: Bright Cyan/Blue (#00bcd4) ~ oklch(0.66 0.12 210) */
-  --design-cyan: oklch(0.66 0.12 210);
-
-  /* --- Unchanged/Defaults --- */
   --popover-foreground: oklch(0.985 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
@@ -140,6 +110,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --spacing-gap: 16px;
+  --radius-default: 32px;
 }
 
 @keyframes fadeInUp {
@@ -251,7 +223,7 @@
 
 @layer base {
   * {
-    @apply m-0 p-0 border-border outline-ring/50 box-border;
+    @apply m-0 p-0 border-border outline-ring/50 box-border scroll-mt-[90px];
   }
   body {
     font-family: CabinetGrotesk-Variable, system-ui, -apple-system, sans-serif;

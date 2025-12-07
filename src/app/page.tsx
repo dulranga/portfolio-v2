@@ -1,8 +1,9 @@
-import { FC } from "react";
-import ComingSoon from "~/components/ComingSoon";
+import HeroSection from "~/components/HeroSection";
 
-const Page: FC = ({}) => {
-  return <ComingSoon />;
-};
-
-export default Page;
+export default function Page() {
+  return (
+    <main className="min-h-screen">
+      <HeroSection />
+    </main>
+  );
+}

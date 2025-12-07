@@ -61,15 +61,15 @@ export function IconsBackground() {
     };
 
     const icons = [
-      { Icon: AwsIcon, x: 92, y: 58 },
-      { Icon: BunIcon, x: 82, y: 79 },
-      { Icon: DockerIcon, x: 63, y: 89 },
-      { Icon: GitIcon, x: 30, y: 88 },
-      { Icon: HtmlIcon, x: 11, y: 56 },
-      { Icon: JavaScriptIcon, x: 20, y: 40 },
-      { Icon: NodeIcon, x: 36, y: 15 },
-      { Icon: ReactIcon, x: 63, y: 13 },
-      { Icon: ViteIcon, x: 83, y: 20 },
+      { Icon: AwsIcon, x: 75, y: 12 },
+      { Icon: BunIcon, x: 88, y: 25 },
+      { Icon: DockerIcon, x: 92, y: 45 },
+      { Icon: GitIcon, x: 58, y: 58 },
+      { Icon: HtmlIcon, x: 85, y: 72 },
+      { Icon: JavaScriptIcon, x: 95, y: 88 },
+      { Icon: NodeIcon, x: 68, y: 35 },
+      { Icon: ReactIcon, x: 72, y: 78 },
+      { Icon: ViteIcon, x: 82, y: 62 },
     ];
 
     const items: IconItem[] = icons.map((icon, index) => {
@@ -109,14 +109,14 @@ export function IconsBackground() {
   }
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none">
       {iconItems.map((item) => (
         <div
           key={item.id}
           className={cn(
             "absolute transition-opacity duration-1000 opacity-0 scale-50 md:scale-100",
             item.animationClass,
-            { "opacity-100": mounted },
+            { "opacity-100": mounted }
           )}
           style={
             {

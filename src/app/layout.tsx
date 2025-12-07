@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "~/assets/css/cabinet-grotesk.css";
 import { ThemeProvider } from "~/components/ThemeProvider";
+import { Nav } from "~/components/Nav";
+import { Footer } from "~/components/Footer";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -83,7 +85,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
