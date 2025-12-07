@@ -55,8 +55,6 @@ export function getAllPosts(): PostMetadata[] {
  */
 export function getPostBySlug(slug: string): Post {
   const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-  console.log(postsDirectory, slug);
-
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 

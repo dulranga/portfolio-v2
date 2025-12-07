@@ -1,4 +1,5 @@
-import { getAllPostSlugs } from "~/lib/blog";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { getAllPostSlugs, getPostBySlug } from "~/lib/blog";
 
 // Dynamic params for static generation
 export async function generateStaticParams() {
@@ -15,8 +16,8 @@ export default async function BlogPostPage({
 }) {
   const { slug } = await params;
 
-  // Dynamically import the MDX file
-  const Post = (await import(`~/content/posts/${slug}.mdx`)).default;
+  // Get the post content without frontmatter using gray-matter
+  const post = getPostBySlug(slug);
 
-  return <Post />;
+  return <MDXRemote source={post.content} />;
 }
