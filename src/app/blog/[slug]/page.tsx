@@ -1,5 +1,14 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPostSlugs, getPostBySlug } from "~/lib/blog";
+import rehypePrettyCode, { type Options } from "rehype-pretty-code";
+
+const rehypeOptions: Options = {
+  theme: {
+    light: "one-light",
+    dark: "one-dark-pro",
+  },
+  keepBackground: false,
+};
 
 // Dynamic params for static generation
 export async function generateStaticParams() {
@@ -19,5 +28,14 @@ export default async function BlogPostPage({
   // Get the post content without frontmatter using gray-matter
   const post = getPostBySlug(slug);
 
-  return <MDXRemote source={post.content} />;
+  return (
+    <MDXRemote
+      source={post.content}
+      options={{
+        mdxOptions: {
+          rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
+        },
+      }}
+    />
+  );
 }

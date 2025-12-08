@@ -41,6 +41,7 @@
 }
 
 .dark {
+  --border: oklch(36% 0 271.152);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.2 0.005 250);
@@ -57,7 +58,6 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -253,4 +253,51 @@
     --webkit-font-smoothing: antialiased;
     --moz-osx-font-smoothing: grayscale;
   }
+}
+
+pre {
+  @apply overflow-x-auto rounded-xl border border-border bg-background/50 p-4 text-sm;
+}
+
+code {
+  @apply rounded-md bg-muted px-1.5 py-0.5 font-mono text-sm;
+}
+
+pre code {
+  @apply bg-transparent p-0;
+}
+
+pre > code {
+  display: grid;
+}
+
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+}
+
+code [data-highlighted-line] {
+  @apply bg-muted;
+}
+
+[data-highlighted-chars] {
+  @apply rounded bg-muted px-1;
+}
+
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+  font-weight: 550;
+}
+
+.dark code[data-theme*=" "],
+.dark code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
 }
