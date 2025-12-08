@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { notFound } from "next/navigation";
 
 const postsDirectory = path.join(process.cwd(), "src/content/posts");
 
@@ -54,19 +55,24 @@ export function getAllPosts(): PostMetadata[] {
  * Returns post metadata and content
  */
 export function getPostBySlug(slug: string): Post {
-  const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  try {
+    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
+    const fileContents = fs.readFileSync(fullPath, "utf8");
+    const { data, content } = matter(fileContents);
 
-  return {
-    slug,
-    title: data.title as string,
-    date: data.date as string,
-    description: data.description as string,
-    author: data.author as string | undefined,
-    tags: data.tags as string[] | undefined,
-    content,
-  };
+    return {
+      slug,
+      title: data.title as string,
+      date: data.date as string,
+      description: data.description as string,
+      author: data.author as string | undefined,
+      tags: data.tags as string[] | undefined,
+      content,
+    };
+  } catch (error) {
+    console.error(`Error fetching post with slug "${slug}":`, error);
+    notFound();
+  }
 }
 
 /**
