@@ -6,7 +6,7 @@ import { IconsBackground } from "./IconsBackground";
 export default function HeroSection() {
   return (
     <div className="p-gap mx-auto">
-      <section className="grid gap-2 min-h-[60vh] p-8 md:p-12 lg:p-24 rounded-default relative border border-border ">
+      <section className="grid gap-2 min-h-[60vh] p-8 md:p-12 lg:p-24 rounded-default relative border border-border overflow-hidden ">
         <div className="self-center">
           <IconsBackground />
           {/* Left Column - Text Content */}
@@ -19,7 +19,7 @@ export default function HeroSection() {
                 A frontend developer with 4 years of experience
               </p>
             </div>
-            <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg font-medium">
               Crafting exceptional digital experiences with clean code and
               thoughtful design. Specialized in building modern, performant web
               applications using React, Next.js, and TypeScript.
