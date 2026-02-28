@@ -1,14 +1,5 @@
-import { MDXRemote } from "next-mdx-remote/rsc";
-import rehypePrettyCode, { type Options } from "rehype-pretty-code";
+import { MdxRenderer } from "~/components/MdxRenderer";
 import { getAllPostSlugs, getPostBySlug } from "~/lib/blog";
-
-const rehypeOptions: Options = {
-    theme: {
-        light: "one-light",
-        dark: "one-dark-pro",
-    },
-    keepBackground: false,
-};
 
 // Dynamic params for static generation
 export async function generateStaticParams() {
@@ -28,14 +19,5 @@ export default async function BlogPostPage({
     // Get the post content without frontmatter using gray-matter
     const post = getPostBySlug(slug);
 
-    return (
-        <MDXRemote
-            source={post.content}
-            options={{
-                mdxOptions: {
-                    rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
-                },
-            }}
-        />
-    );
+    return <MdxRenderer source={post.content} />;
 }

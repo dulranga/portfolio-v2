@@ -76,6 +76,35 @@ export function getPostBySlug(slug: string): Post {
 }
 
 /**
+ * Generic function to get and parse content from any MDX file in the workspace
+ * Returns metadata and parsed content similar to getPostBySlug
+ */
+export function getFileContent(filePath: string): Post {
+    try {
+        const fullPath = path.isAbsolute(filePath)
+            ? filePath
+            : path.join(process.cwd(), filePath);
+        
+        const fileContents = fs.readFileSync(fullPath, "utf8");
+        const { data, content } = matter(fileContents);
+        const slug = path.basename(filePath, path.extname(filePath));
+
+        return {
+            slug,
+            title: data.title as string,
+            date: data.date as string,
+            description: data.description as string,
+            author: data.author as string | undefined,
+            tags: data.tags as string[] | undefined,
+            content,
+        };
+    } catch (error) {
+        console.error(`Error reading/parsing file at "${filePath}":`, error);
+        throw error;
+    }
+}
+
+/**
  * Get all post slugs for static generation
  */
 export function getAllPostSlugs(): string[] {
