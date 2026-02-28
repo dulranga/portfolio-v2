@@ -1,6 +1,7 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import type { FC } from "react";
 import rehypePrettyCode, { type Options } from "rehype-pretty-code";
+import { Pre } from "./Pre";
 
 const rehypeOptions: Options = {
     theme: {
@@ -8,6 +9,10 @@ const rehypeOptions: Options = {
         dark: "one-dark-pro",
     },
     keepBackground: false,
+};
+
+const components = {
+    pre: Pre,
 };
 
 interface MdxRendererProps {
@@ -24,6 +29,7 @@ export const MdxRenderer: FC<MdxRendererProps> = ({ source }) => {
                         rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
                     },
                 }}
+                components={components}
             />
         </div>
     );
