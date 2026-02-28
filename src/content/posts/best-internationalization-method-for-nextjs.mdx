@@ -34,6 +34,7 @@ Since you are here to learn the **best** way, I assume you know what internation
     Can you quickly see what these tags supposed to render? Were they just greetings, important information, or something else?
 
 
+
 2. **Too much manual work to setup and maintain**
 
     -   In most libraries you must manually create translation files, extract strings, paste them in translation files.
@@ -217,7 +218,7 @@ Folder Structure (refer to this if you get lost somewhere)
 
 We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
 
-1. Install dependencies
+### Install dependencies
 
     ```bash
         npm install --save-dev @lingui/cli @lingui/swc-plugin
@@ -226,7 +227,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
         npm install --save @lingui/core @lingui/macro @lingui/react
     ```
 
-2. Add Configuration to NextJS
+### Add Configuration to NextJS
 
     In your `next.config.js` file, add the following configuration to enable the Lingui SWC plugin:
 
@@ -243,7 +244,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
     export default nextConfig;
     ```
 
-3. Setup basic configuration
+### Setup basic configuration
     Create a `lingui.config.ts` file in the root of your project with the following content:
 
     ```ts title="~/lingui.config.ts"
@@ -267,7 +268,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
 
     We are adding 2 languages here, English and French. You can add more languages as you want. Each locale should be a valid [BCP-47 code](https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags)
 
-4. Create helper files inside `src/lib` folder
+### Create helper files inside `src/lib` folder
 
     ```ts title="~/src/lib/i18n.ts"
     import { i18n, type I18n } from "@lingui/core";
@@ -383,7 +384,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
     }
     ```
 
-5. Setup middleware.ts for locale detection
+### Setup middleware.ts for locale detection
 
     Create a `middleware.ts` file in the `src` folder with the following content:
 
@@ -453,7 +454,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
 
     ```
 
-6. Create i18n provider for Client Components
+### Create i18n provider for Client Components
 
     ```tsx title="~/src/providers/i18n-provider.tsx"
     "use client";
@@ -494,7 +495,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
     }
     ```
 
-7. Create a custom hook for translations in Client Components
+### Create a custom hook for translations in Client Components
 
     ```ts title="~/src/hooks/use-translation.ts"
     "use client";
@@ -542,7 +543,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
     }
     ```
 
-8. Update your root layout to setup i18n
+### Update your root layout to setup i18n
 
     ```tsx title="~/src/app/layout.tsx"
     import { cookies, headers } from "next/headers";
@@ -580,7 +581,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
     }
 
     ```
-9. Extract and compile messages
+### Extract and compile messages
     Now you run this command to see if everything is working fine.
 
     ```bash
@@ -595,7 +596,7 @@ We will be using Nextjs 15 with React 19 and LinguiJS 5 for this setup.
     ```
     This will generate the `messages.js` files that are used at runtime.
 
-10. Simple component to change locale
+### Simple component to change locale
 
     ```tsx title="~/src/components/locale-switcher.tsx"
     "use client";
