@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { type FC } from "react";
+import type { FC } from "react";
 import { getAllPosts, type PostMetadata } from "~/lib/blog";
-import { cn } from "~/lib/utils";
 
 const Blog: FC = () => {
     const posts = getAllPosts().slice(0, 3); // Display top 3 for the landing page
