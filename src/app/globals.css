@@ -291,6 +291,11 @@ pre > code {
   display: grid;
 }
 
+code::before,
+code::after {
+  content: "";
+}
+
 code[data-line-numbers] {
   counter-reset: line;
 }
