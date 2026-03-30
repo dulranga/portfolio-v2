@@ -15,15 +15,14 @@ export default function HeroSection() {
                             <h1 className="text-4xl font-bold leading-16 md:text-5xl lg:text-8xl">
                                 Hi, I'm Dulranga
                             </h1>
-                            <p className="text-xl font-semibold text-muted-foreground md:text-2xl">
-                                A frontend developer with 4 years of experience
-                            </p>
+                            <p className="text-xl font-semibold text-muted-foreground md:text-2xl"></p>
                         </div>
                         <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg font-medium">
-                            Crafting exceptional digital experiences with clean
-                            code and thoughtful design. Specialized in building
-                            modern, performant web applications using React,
-                            Next.js, and TypeScript.
+                            I have been developing web applications for over 4
+                            years, and I am passionate about building performant
+                            and scalable applications. I always look for new
+                            challenges and opportunities to learn and grow as a
+                            developer.
                         </p>
                         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                             <Button asChild size="lg">

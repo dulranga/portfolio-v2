@@ -167,9 +167,12 @@ long optimized_approach(int n, vector<vector<int>> queries) {
     return max_arr;
 }
 ```
+$$
+\int_\alpha^\beta f'(x) \, dx = f(\beta) - f(\alpha)
+$$
 
 ## Complexity Comparison
-Naive: $O(n \times q)$
+Naive: $O(n \times q)$  
 Optimized: $O(n + q)$
 
 The optimized approach uses 2 separate loops, one for applying the difference updates and another for reconstructing the final array and finding the maximum value. This is significantly more efficient than the naive approach, especially when $n$ and $q$ are large.

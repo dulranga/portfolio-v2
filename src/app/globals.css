@@ -281,7 +281,7 @@ pre {
 }
 
 code {
-  @apply rounded-md bg-muted px-1.5 py-0 font-mono text-sm;
+  @apply rounded-md bg-muted px-1.5 py-0 font-mono;
 }
 
 pre code {
