@@ -1,0 +1,178 @@
+---
+title: "Optimizing Range Updates from O(n×q) → O(n+q)"
+date: "2026-03-29"
+description: "Learn how to optimize range updates in arrays using the difference array technique."
+author: "Dulranga Dhawanitha"
+tags: ["algorithms", "data structures", "optimization"]
+---
+
+This is another post in the series of algorithmic optimizations. I found this problem on [hackerrank](https://www.hackerrank.com/challenges/crush/problem) and it is a great example of how to approach a problem with a completely different mindset to achieve a much better time complexity.
+ 
+
+## The Problem 
+**Starting with a 1-indexed array of zeros and a list of operations, for each operation add a value to each
+array element between two given indices, inclusive. Once all operations have been performed, return the
+maximum value in the array.**
+
+```
+n = 10
+queries = [[1,5,3], [4, 8, 7], [6, 9, 1]]
+```
+
+### Inputs
+
+- `int n`: the number of elements in the array  
+- `int queries[q][3]`: a 2D array of queries where each query contains three integers, $a$, $b$, and $k$. For each query, add the value $k$ to all elements from index $a$ to index $b$ (inclusive).
+
+### Outputs
+
+Return the maximum value in the array after performing all the operations.
+
+## Use cases
+
+Here are some real-world scenarios where this problem is relevant:
+- **Financial Transactions**: Imagine you have a ledger of transactions where each transaction affects a range of accounts. You want to find the maximum balance after applying all transactions.
+- **Event Scheduling**: Consider a calendar where events can span multiple days. You want to determine the day with the highest number of events after scheduling all events.
+- **Bulk Range Updates in Systems (Logs / Metrics / Counters)**: In systems that track metrics or logs, you might need to apply bulk updates to a range of entries and then find the maximum value after all updates.
+   
+## Naive Approach (What Most People Do First)
+The most straightforward way to solve this problem is to iterate through each query and update the values in the specified range directly. This involves a nested loop: the outer loop iterates through each query, and the inner loop updates the values for the specified range.
+
+Since it involves 2 nested loops, the time complexity of this approach is $O(n \times q)$, where $n$ is the size of the array and $q$ is the number of queries.   
+
+Here is a C++ representation of the naive approach:
+```cpp
+int naive_approach(int n, vector<vector<int>> queries) {
+    vector<long long> arr(n + 1, 0); // Create an array of size n+1 initialized to 0
+    for (auto& q : queries) {
+        int a = q[0];
+        int b = q[1];
+        int k = q[2];
+        for (int i = a; i <= b; i++) {
+            arr[i] += k; // Update the range [a, b] by adding k
+        }
+    }
+    int max_value = 0;
+
+    for (int i = 1; i <= n; i++) {
+        if (arr[i] > max_value) {
+            max_value = arr[i];
+        }
+    }
+
+    return max_value; // Return the maximum value in the array
+}
+```
+
+## Critical Analysis
+The naive approach becomes inefficient when the number of queries ($q$) is large, especially if the ranges specified in the queries are wide. Each query can potentially update a large portion of the array, leading to a significant number of operations. For example, if $n$ is $10^7$ and $q$ is $10^5$, the naive approach would require up to $10^{12}$ operations, which is a lot of operations!
+
+
+## What is the correct approach?
+
+To do it more efficiently, we can use the **Difference Array Technique**. This technique allows us to perform range updates in constant time and then reconstruct the final array using a prefix sum.
+
+
+### Difference Array Technique (Core Concept)
+In a difference array, we only update the start and end positions of a range where the update should occur. 
+Instead of updating every element in a range:  
+- mark where an effect **starts**
+- mark where it **stops**
+
+Then to get the final values after each query operation, we take a cumulative sum (prefix sum) of the difference array. This way, we can efficiently apply all updates and find the maximum value in a single pass.  
+
+Since these are two separate loop operations, the overall time complexity of this approach is $O(n + q)$, which is much more efficient than the naive approach.
+
+#### Rules:
+1. Add the value $k$ at index $a$ (the start of the range).
+2. Subtract the value $k$ at index $b + 1$ (the end of the range + 1) to indicate where the effect of the update should stop.
+
+We subtract $k$ from $b + 1$ position to ensure that the range update gets undone at that position, effectively marking the end of the update's influence.
+
+## Step-by-Step Example
+
+Let's walk through an example with $n = 9$ and three queries:
+```
+a b k
+1 5 3
+4 8 7
+6 9 1
+```
+
+### 1. Initial State
+We start with an array of size $n+1$ (to handle the $b+1$ boundary) initialized to zeros. 
+*(Index 0 is ignored for 1-indexing clarity)*.
+
+| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| Value | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+### 2. Applying Difference Updates
+For each query $[a, b, k]$, we do: `arr[a] += k` and `arr[b+1] -= k`.
+
+| Query | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| `[1, 5, 3]` | +3 | 0 | 0 | 0 | 0 | -3 | 0 | 0 | 0 | 0 |
+| `[4, 8, 7]` | +3 | 0 | 0 | +7 | 0 | -3 | 0 | 0 | -7 | 0 |
+| `[6, 9, 1]` | +3 | 0 | 0 | +7 | 0 | -2 | 0 | 0 | -7 | -1 |
+
+**Difference Array state:**
+| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **Value** | **3** | 0 | 0 | **7** | 0 | **-2** | 0 | 0 | **-7** | **-1** |
+
+
+*(Note: `arr[6]` became $-2$ because $-3 + 1 = -2$)*
+
+### 3. Prefix Sum Reconstruction
+Now we compute the cumulative sum  
+`current element = previous sum + current diff`.
+
+| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Calculation** | $3$ | $3+0$ | $3+0$ | $3+7$ | $10+0$ | $10+(-2)$ | $8+0$ | $8+0$ | $8+(-7)$ |
+| **Resultant** | **3** | **3** | **3** | **10** | **10** | **8** | **8** | **8** | **1** |
+
+**Final Reconstructed Array:**
+| Index | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Value | 3 | 3 | 3 | **10** | **10** | 8 | 8 | 8 | 1 |
+
+The **maximum value** is **10**, which occurs at indices 4 and 5. 
+
+## Optimized Code Implementation
+
+```cpp
+int optimized_approach(int n, vector<vector<int>> queries) {
+    vector<long long> arr(n + 1, 0);  // Create a difference array
+    // Apply the difference updates
+    for (auto& q : queries) {
+        int a = q[0];
+        int b = q[1];
+        int k = q[2];
+        arr[a] += k;
+        if (b + 1 <= n) {
+            arr[b + 1] -= k;
+        }
+    }
+    // Reconstruct the final array and find the maximum value
+    int max_arr = 0;
+    long long current_sum = 0;
+    for (int i = 1; i <= n; i++) {
+        current_sum += arr[i];
+        if (current_sum > max_arr) {
+            max_arr = current_sum;
+        }
+    }
+    return max_arr;
+}
+```
+
+## Complexity Comparison
+Naive: $O(n \times q)$
+Optimized: $O(n + q)$
+
+The optimized approach uses 2 separate loops, one for applying the difference updates and another for reconstructing the final array and finding the maximum value. This is significantly more efficient than the naive approach, especially when $n$ and $q$ are large.
+
+![Complexity Comparison of Naive and Optimized Approaches](https://i.imgur.com/Yksz848.png)
+
