@@ -1,6 +1,10 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
 import type { FC } from "react";
+import rehypeKatex from "rehype-katex";
 import rehypePrettyCode, { type Options } from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import { Pre } from "./Pre";
 
 const rehypeOptions: Options = {
@@ -26,7 +30,12 @@ export const MdxRenderer: FC<MdxRendererProps> = ({ source }) => {
                 source={source}
                 options={{
                     mdxOptions: {
-                        rehypePlugins: [[rehypePrettyCode, rehypeOptions]],
+                        remarkPlugins: [remarkMath, remarkGfm],
+                        rehypePlugins: [
+                            rehypeSlug,
+                            rehypeKatex,
+                            [rehypePrettyCode, rehypeOptions],
+                        ],
                     },
                 }}
                 components={components}

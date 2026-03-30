@@ -84,7 +84,7 @@ export function getFileContent(filePath: string): Post {
         const fullPath = path.isAbsolute(filePath)
             ? filePath
             : path.join(process.cwd(), filePath);
-        
+
         const fileContents = fs.readFileSync(fullPath, "utf8");
         const { data, content } = matter(fileContents);
         const slug = path.basename(filePath, path.extname(filePath));

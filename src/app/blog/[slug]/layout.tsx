@@ -47,7 +47,7 @@ export default async function BlogPostLayout({
                     )}
                 </header>
                 <div className="px-8">
-                    <div className="prose prose-lg dark:prose-invert max-w-none">
+                    <div className="prose prose-lg dark:prose-invert max-w-none prose-p:text-lg">
                         {children}
                     </div>
                 </div>
