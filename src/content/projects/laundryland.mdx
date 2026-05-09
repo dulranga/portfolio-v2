@@ -1,0 +1,164 @@
+---
+title: "LaundryLand: A Laundry appointment booking system"
+date: "2026-02-28"
+description: "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+author: "Dulranga Dhawanitha"
+image: "/projects/laundryland.png"
+tech: ["react", "typescript", "node", "docker"]
+tags: ["nextjs", "typescript", "performance", "dashboard"]
+---
+
+ 
+
+## 1. Problem Context (Why This Exists)
+
+* What OBS Power actually does (1–2 sentences, no marketing fluff)
+* The exact problem you were solving
+* Why existing solutions were insufficient (be specific, not vague claims)
+
+👉 If this section is weak, the whole post is pointless.
+
+---
+
+## 2. High-Level System Overview
+
+* Core entities (users, offers, traders, teams, etc.)
+* How the system flows end-to-end (lead → processing → output)
+* A simple architecture diagram (don’t skip this)
+
+---
+
+## 3. Tech Stack (With Justification)
+
+Break it down properly:
+
+* Frontend: Next.js (why? SSR? routing? SEO?)
+* Backend: Express.js (why not serverless fully?)
+* Database: MongoDB (why this over SQL?)
+* Infra: AWS (which services and why)
+
+👉 If your answer is “because I’m familiar with it,” that’s weak. Say tradeoffs.
+
+---
+
+## 4. Core Features Breakdown
+
+Don’t list features—explain mechanics.
+
+### 4.1 Offer Request System
+
+* How requests are created
+* How traders are assigned
+* Data relationships
+
+### 4.2 Trader + Team Structure
+
+* Why teams were introduced
+* Team leader logic
+* Assignment flow changes
+
+### 4.3 Offer Generation Flow
+
+* What happens after submission
+* How multiple offers are generated
+* Any automation logic
+
+---
+
+## 5. Key Technical Challenges (This is the real value)
+
+Pick 3–5 actual problems you struggled with:
+
+### Example:
+
+* Scaling offer assignment logic
+* Maintaining consistency across async flows
+* CDN caching vs dynamic data issues
+* Redirection system (Lambda@Edge + DB lookup)
+
+For each:
+
+* What broke
+* Why it broke
+* What naive solution failed
+* Final solution (with reasoning)
+
+👉 This section separates a serious engineer from someone just documenting CRUD.
+
+---
+
+## 6. Architecture Decisions (Tradeoffs)
+
+* Why not microservices?
+* Why not serverless everywhere?
+* Why MongoDB despite relational data?
+* Where you knowingly accepted technical debt
+
+👉 If you pretend everything is perfect, it reads like nonsense.
+
+---
+
+## 7. Performance & Optimization
+
+* Caching strategy (CDN, endpoints)
+* DB query optimizations
+* Handling high request volume
+* Any measurable improvements
+
+---
+
+## 8. Security & Reliability
+
+* Auth approach (NextAuth, tokens, etc.)
+* Data validation
+* Preventing abuse (rate limits, etc.)
+* Failure handling (retries, fallbacks)
+
+---
+
+## 9. Deployment & DevOps
+
+* Docker setup (multi-service)
+* CI/CD (GitHub Actions → ECR → deploy)
+* Environment management
+* Any production issues you hit
+
+---
+
+## 10. Lessons Learned (No sugarcoating)
+
+* What you’d do differently
+* What turned out harder than expected
+* Bad decisions you made early
+
+👉 If this section is honest, it builds credibility. If not, it’s just self-promotion.
+
+---
+
+## 11. Future Improvements
+
+* Features you plan to add
+* Architectural changes needed
+* Scaling concerns
+
+---
+
+## 12. Conclusion
+
+* Short recap
+* Who this system is actually useful for
+* Optional: link to repo/demo
+
+---
+
+## Optional (but high value)
+
+* Screenshots of system UI
+* Architecture diagram
+* Code snippets for critical parts (not random code)
+
+---
+
+If you follow this structure strictly, you’ll produce something worth reading.
+
+If you skip the “challenges” and “tradeoffs” sections, you’re just writing marketing disguised as engineering.
