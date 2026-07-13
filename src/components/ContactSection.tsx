@@ -5,14 +5,14 @@ import { Button } from "~/components/ui/button";
 const contactMethods = [
   {
     label: "Number",
-    value: "+1 (555) 123-4567",
-    href: "tel:+15551234567",
+    value: "+94 74 064 6688",
+    href: "tel:+94740646688",
     icon: Phone,
   },
   {
     label: "Email",
-    value: "hello@dulranga.dev",
-    href: "mailto:hello@dulranga.dev?subject=Hello%20Dulranga%2C%20let's%20connect",
+    value: "hi@dulranga.dev",
+    href: "mailto:hi@dulranga.dev?subject=Hello%20Dulranga%2C%20let's%20connect",
     icon: Mail,
   },
   {
@@ -23,8 +23,8 @@ const contactMethods = [
   },
   {
     label: "Instagram",
-    value: "instagram.com/dulranga",
-    href: "https://instagram.com/dulranga",
+    value: "instagram.com/_dulranga_",
+    href: "https://instagram.com/_dulranga_",
     icon: Instagram,
   },
 ];
