@@ -1,37 +1,22 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "katex/dist/katex.min.css";
+@plugin '@tailwindcss/typography';
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --border: oklch(0.922 0 0);
+  --border: oklch(63.009% 0.00007 271.152);
   --muted: oklch(0.97 0 0);
   --radius: 0.625rem;
-
-  /* --- Mapped Design Colors (Light Mode) --- */
-  /* Primary Background: Light Gray / Off-White (#f7f7f7) ~ oklch(0.98 0 0) */
   --background: oklch(0.98 0 0);
   --card: oklch(0.98 0 0);
-
-  /* Text Dark: Black/Near Black (#1e1e1e) ~ oklch(0.145 0 0) */
   --foreground: oklch(0.145 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(
-    0.145 0 0
-  ); /* Used for Contact Me button background (Black) */
-  --primary-foreground: oklch(0.985 0 0); /* White text on Primary */
+  --primary: oklch(0.145 0 0);
+  --primary-foreground: oklch(0.985 0 0);
 
-  /* Dark Card: Deep Charcoal / Dark Blue-Gray (#282a36) ~ oklch(0.20 0.005 250) */
-  --design-dark-card: oklch(0.2 0.005 250);
-
-  /* Secondary Accent: Vivid Yellow/Mustard (#ffc107) ~ oklch(0.85 0.15 88) */
-  --design-yellow: oklch(0.85 0.15 88);
-
-  /* Interactive Blue: Bright Cyan/Blue (#00bcd4) ~ oklch(0.66 0.12 210) */
-  --design-cyan: oklch(0.66 0.12 210);
-
-  /* --- Unchanged/Defaults --- */
   --popover: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -57,26 +42,14 @@
 }
 
 .dark {
-  /* --- Mapped Design Colors (Dark Mode) --- */
-  /* Reversing Text/Background Colors */
-  --background: oklch(0.145 0 0); /* Dark Background */
-  --foreground: oklch(0.985 0 0); /* Light Text */
-
-  /* Dark Card: Deep Charcoal / Dark Blue-Gray (#282a36) ~ oklch(0.20 0.005 250) */
+  --border: oklch(36% 0 271.152);
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
   --card: oklch(0.2 0.005 250);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.2 0.005 250);
+  --primary: oklch(100% 0 0);
 
-  /* Primary Button: Black/Near Black (#1e1e1e) ~ oklch(0.145 0 0) - Used for buttons/accents */
-  --primary: oklch(0.145 0 0);
-
-  /* Secondary Accent: Vivid Yellow/Mustard (#ffc107) ~ oklch(0.85 0.15 88) */
-  --design-yellow: oklch(0.85 0.15 88);
-
-  /* Interactive Blue: Bright Cyan/Blue (#00bcd4) ~ oklch(0.66 0.12 210) */
-  --design-cyan: oklch(0.66 0.12 210);
-
-  /* --- Unchanged/Defaults --- */
   --popover-foreground: oklch(0.985 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
@@ -86,7 +59,6 @@
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -139,6 +111,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --spacing-gap: 16px;
+  --radius-default: 32px;
 }
 
 @keyframes fadeInUp {
@@ -250,15 +224,106 @@
 
 @layer base {
   * {
-    @apply m-0 p-0 border-border outline-ring/50 box-border;
+    @apply m-0 p-0 border-border outline-ring/50 box-border scroll-mt-[90px];
   }
   body {
-    font-family: CabinetGrotesk-Variable, system-ui, -apple-system, sans-serif;
+    font-family:
+      CabinetGrotesk-Variable,
+      system-ui,
+      -apple-system,
+      sans-serif;
     overflow-x: hidden;
-    @apply bg-background text-foreground;
+    min-height: 100vh;
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--background) 95%, transparent),
+        color-mix(in oklab, var(--background) 95%, transparent)
+      ),
+      url("/grain.png");
+    background-repeat: no-repeat, repeat;
+    background-size:
+      cover,
+      400px 400px;
+    color: var(--foreground);
+  }
+  .dark body {
+    background:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, var(--background) 93%, transparent),
+        color-mix(in oklab, var(--background) 93%, transparent)
+      ),
+      url("/grain-invert.png");
   }
 
   html {
     scroll-behavior: smooth;
+    --webkit-font-smoothing: antialiased;
+    --moz-osx-font-smoothing: grayscale;
   }
+}
+
+pre {
+  @apply overflow-x-auto rounded-xl border border-border p-4 text-sm text-zinc-300;
+}
+
+[data-rehype-pretty-code-figure] {
+  @apply overflow-hidden rounded-2xl border border-zinc-200 dark:border-zinc-800;
+}
+
+[data-rehype-pretty-code-title] {
+  @apply flex items-center border-b border-input/50 bg-background mt-0 px-4 py-2.5 text-xs font-medium text-zinc-500 dark:text-zinc-500 font-mono;
+}
+
+[data-rehype-pretty-code-figure] pre {
+  @apply m-0 border-none bg-transparent rounded-none;
+}
+
+code {
+  @apply rounded-md bg-muted px-1.5 py-0 font-mono;
+}
+
+pre code {
+  @apply bg-transparent p-0;
+}
+
+pre > code {
+  display: grid;
+}
+
+code::before,
+code::after {
+  content: "";
+}
+
+code[data-line-numbers] {
+  counter-reset: line;
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  @apply mr-4 inline-block w-4 text-right text-muted-foreground;
+}
+
+code [data-highlighted-line] {
+  @apply bg-muted;
+}
+
+[data-highlighted-chars] {
+  @apply rounded bg-muted px-1;
+}
+
+code[data-theme*=" "],
+code[data-theme*=" "] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+  font-weight: 400;
+}
+
+.dark code[data-theme*=" "],
+.dark code[data-theme*=" "] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
 }
