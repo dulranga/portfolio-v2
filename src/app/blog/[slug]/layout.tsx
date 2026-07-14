@@ -31,11 +31,13 @@ export default async function BlogPostLayout({
                   })}
                 </time>
                 <Dot />
+
                 {post.author && <span> {post.author}</span>}
               </div>
               <p className="text-lg text-muted-foreground">
                 {post.description}
               </p>
+
               {post.tags && post.tags.length > 0 && (
                 <div className="mt-4 flex flex-wrap gap-2">
                   {post.tags.map((tag: string) => (
@@ -49,13 +51,16 @@ export default async function BlogPostLayout({
                 </div>
               )}
             </header>
+            <div className="mb-8 rounded-2xl border border-border p-5 shadow-sm lg:hidden">
+              <TableOfContents headings={tableOfContents} />
+            </div>
+
             <div className="prose prose-lg dark:prose-invert max-w-none prose-p:text-lg">
               {children}
             </div>
           </div>
         </div>
-
-        <aside className="lg:sticky lg:top-24 lg:self-start">
+        <aside className="sticky top-24 hidden self-start lg:block">
           <div className="rounded-2xl border border-border p-5 shadow-sm">
             <TableOfContents headings={tableOfContents} />
           </div>

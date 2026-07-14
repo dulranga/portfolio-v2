@@ -118,7 +118,7 @@ export function BlogSearch({ posts, initialQuery = "" }: BlogSearchProps) {
   }
 
   return (
-  <div className="relative w-full sm:max-w-xs">
+    <div className="relative w-full sm:max-w-xs">
       <label className="sr-only" htmlFor="blog-search-input">
         Search blog articles
       </label>
