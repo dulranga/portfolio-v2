@@ -18,7 +18,6 @@ export default async function BlogPostPage({
 
   // Get the post content without frontmatter using gray-matter
   const post = getPostBySlug(slug);
-  console.log(post);
 
   return <MdxRenderer source={post.content} />;
 }
