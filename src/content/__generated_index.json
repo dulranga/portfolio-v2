@@ -1,0 +1,344 @@
+{
+  "generatedAt": "2026-07-14T08:04:36.144Z",
+  "sourceDirectory": "src/content/posts",
+  "posts": [
+    {
+      "slug": "optimizing-range-updates",
+      "frontmatter": {
+        "title": "Optimizing Range Updates from O(n×q) → O(n+q)",
+        "date": "2026-03-29",
+        "description": "Learn how to optimize range updates in arrays using the difference array technique.",
+        "author": "Dulranga Dhawanitha",
+        "tags": [
+          "algorithms",
+          "data structures",
+          "optimization"
+        ]
+      },
+      "headings": [
+        {
+          "level": 2,
+          "text": "The Problem",
+          "raw": "The Problem",
+          "slug": "the-problem"
+        },
+        {
+          "level": 3,
+          "text": "Inputs",
+          "raw": "Inputs",
+          "slug": "inputs"
+        },
+        {
+          "level": 3,
+          "text": "Outputs",
+          "raw": "Outputs",
+          "slug": "outputs"
+        },
+        {
+          "level": 2,
+          "text": "Use cases",
+          "raw": "Use cases",
+          "slug": "use-cases"
+        },
+        {
+          "level": 2,
+          "text": "Naive Approach (What Most People Do First)",
+          "raw": "Naive Approach (What Most People Do First)",
+          "slug": "naive-approach-what-most-people-do-first"
+        },
+        {
+          "level": 2,
+          "text": "Critical Analysis",
+          "raw": "Critical Analysis",
+          "slug": "critical-analysis"
+        },
+        {
+          "level": 2,
+          "text": "What is the correct approach?",
+          "raw": "What is the correct approach?",
+          "slug": "what-is-the-correct-approach"
+        },
+        {
+          "level": 3,
+          "text": "Difference Array Technique (Core Concept)",
+          "raw": "Difference Array Technique (Core Concept)",
+          "slug": "difference-array-technique-core-concept"
+        },
+        {
+          "level": 4,
+          "text": "Rules:",
+          "raw": "Rules:",
+          "slug": "rules"
+        },
+        {
+          "level": 2,
+          "text": "Step-by-Step Example",
+          "raw": "Step-by-Step Example",
+          "slug": "step-by-step-example"
+        },
+        {
+          "level": 3,
+          "text": "1. Initial State",
+          "raw": "1. Initial State",
+          "slug": "1-initial-state"
+        },
+        {
+          "level": 3,
+          "text": "2. Applying Difference Updates",
+          "raw": "2. Applying Difference Updates",
+          "slug": "2-applying-difference-updates"
+        },
+        {
+          "level": 3,
+          "text": "3. Prefix Sum Reconstruction",
+          "raw": "3. Prefix Sum Reconstruction",
+          "slug": "3-prefix-sum-reconstruction"
+        },
+        {
+          "level": 2,
+          "text": "Optimized Code Implementation",
+          "raw": "Optimized Code Implementation",
+          "slug": "optimized-code-implementation"
+        },
+        {
+          "level": 2,
+          "text": "Complexity Comparison",
+          "raw": "Complexity Comparison",
+          "slug": "complexity-comparison"
+        }
+      ]
+    },
+    {
+      "slug": "analyze-recursive-functions",
+      "frontmatter": {
+        "title": "How to analyze O(n) of recursive functions",
+        "date": "2026-03-12",
+        "description": "Learn how to analyze the time complexity of recursive functions and understand their behavior in terms of Big O notation.",
+        "author": "Dulranga Dhawanitha",
+        "tags": [
+          "recursion",
+          "algorithm",
+          "time complexity",
+          "big-o"
+        ]
+      },
+      "headings": [
+        {
+          "level": 2,
+          "text": "How to derive the recurrence relation?",
+          "raw": "How to derive the recurrence relation?",
+          "slug": "how-to-derive-the-recurrence-relation"
+        },
+        {
+          "level": 3,
+          "text": "Analyzing the time complexity",
+          "raw": "Analyzing the time complexity",
+          "slug": "analyzing-the-time-complexity"
+        },
+        {
+          "level": 2,
+          "text": "Analyze time complexiting using methods",
+          "raw": "Analyze time complexiting using methods",
+          "slug": "analyze-time-complexiting-using-methods"
+        },
+        {
+          "level": 3,
+          "text": "Substitution method",
+          "raw": "Substitution method",
+          "slug": "substitution-method"
+        },
+        {
+          "level": 4,
+          "text": "Guess and check method",
+          "raw": "Guess and check method",
+          "slug": "guess-and-check-method"
+        },
+        {
+          "level": 4,
+          "text": "Iterative substitution method",
+          "raw": "Iterative substitution method",
+          "slug": "iterative-substitution-method"
+        },
+        {
+          "level": 2,
+          "text": "Recursion tree method",
+          "raw": "Recursion tree method",
+          "slug": "recursion-tree-method"
+        }
+      ]
+    },
+    {
+      "slug": "why-orderby-is-unpredictable",
+      "frontmatter": {
+        "title": "Why ORDER BY is Unpredictable in SQL",
+        "date": "2026-02-01",
+        "description": "Discover the reasons behind the unpredictability of ORDER BY in SQL and learn best practices for ensuring consistent query results.",
+        "author": "Dulranga Dhawanitha",
+        "tags": [
+          "sql",
+          "database",
+          "query optimization",
+          "best practices"
+        ]
+      },
+      "headings": [
+        {
+          "level": 2,
+          "text": "Problem Introduction",
+          "raw": "Problem Introduction",
+          "slug": "problem-introduction"
+        },
+        {
+          "level": 2,
+          "text": "The Default State: The \"Unordered\" Nature of SQL",
+          "raw": "The Default State: The \"Unordered\" Nature of SQL",
+          "slug": "the-default-state-the-unordered-nature-of-sql"
+        },
+        {
+          "level": 2,
+          "text": "When `ORDER BY` Seems to Fail: Common Pitfalls",
+          "raw": "When `ORDER BY` Seems to Fail: Common Pitfalls",
+          "slug": "when-order-by-seems-to-fail-common-pitfalls"
+        },
+        {
+          "level": 2,
+          "text": "Case Study: The Danger of Non-Deterministic Sorting",
+          "raw": "Case Study: The Danger of Non-Deterministic Sorting",
+          "slug": "case-study-the-danger-of-non-deterministic-sorting"
+        },
+        {
+          "level": 2,
+          "text": "Database Specifics: PostgreSQL vs. MySQL vs. SQL Server",
+          "raw": "Database Specifics: PostgreSQL vs. MySQL vs. SQL Server",
+          "slug": "database-specifics-postgresql-vs-mysql-vs-sql-server"
+        },
+        {
+          "level": 2,
+          "text": "Best Practices for Deterministic Results",
+          "raw": "Best Practices for Deterministic Results",
+          "slug": "best-practices-for-deterministic-results"
+        },
+        {
+          "level": 2,
+          "text": "Conclusion: Sorting as a Contract",
+          "raw": "Conclusion: Sorting as a Contract",
+          "slug": "conclusion-sorting-as-a-contract"
+        }
+      ]
+    },
+    {
+      "slug": "best-internationalization-method-for-nextjs",
+      "frontmatter": {
+        "title": "Internationalization: Best DX-Friendly Configuration for Your Next Project",
+        "date": "2025-12-08",
+        "description": "A guide to setting up internationalization in your projects with a focus on developer experience, using modern tools and practices.",
+        "author": "Dulranga Dhawanitha",
+        "tags": [
+          "typescript",
+          "javascript",
+          "internationalization",
+          "i18n",
+          "best-practices"
+        ]
+      },
+      "headings": [
+        {
+          "level": 2,
+          "text": "Why most of internationalization solutions sucks",
+          "raw": "Why most of internationalization solutions sucks",
+          "slug": "why-most-of-internationalization-solutions-sucks"
+        },
+        {
+          "level": 2,
+          "text": "So what's the solution?",
+          "raw": "So what's the solution?",
+          "slug": "so-whats-the-solution"
+        },
+        {
+          "level": 2,
+          "text": "Benefits of using LinguiJS",
+          "raw": "Benefits of using LinguiJS",
+          "slug": "benefits-of-using-linguijs"
+        },
+        {
+          "level": 2,
+          "text": "How does LinguiJS work?",
+          "raw": "How does LinguiJS work?",
+          "slug": "how-does-linguijs-work"
+        },
+        {
+          "level": 2,
+          "text": "Setting up LinguiJS in NextJS with TypeScript",
+          "raw": "Setting up LinguiJS in NextJS with TypeScript",
+          "slug": "setting-up-linguijs-in-nextjs-with-typescript"
+        },
+        {
+          "level": 3,
+          "text": "Install dependencies",
+          "raw": "Install dependencies",
+          "slug": "install-dependencies"
+        },
+        {
+          "level": 3,
+          "text": "Add Configuration to NextJS",
+          "raw": "Add Configuration to NextJS",
+          "slug": "add-configuration-to-nextjs"
+        },
+        {
+          "level": 3,
+          "text": "Setup basic configuration",
+          "raw": "Setup basic configuration",
+          "slug": "setup-basic-configuration"
+        },
+        {
+          "level": 3,
+          "text": "Create helper files inside `src/lib` folder",
+          "raw": "Create helper files inside `src/lib` folder",
+          "slug": "create-helper-files-inside-srclib-folder"
+        },
+        {
+          "level": 3,
+          "text": "Setup middleware.ts for locale detection",
+          "raw": "Setup middleware.ts for locale detection",
+          "slug": "setup-middlewarets-for-locale-detection"
+        },
+        {
+          "level": 3,
+          "text": "Create i18n provider for Client Components",
+          "raw": "Create i18n provider for Client Components",
+          "slug": "create-i18n-provider-for-client-components"
+        },
+        {
+          "level": 3,
+          "text": "Create a custom hook for translations in Client Components",
+          "raw": "Create a custom hook for translations in Client Components",
+          "slug": "create-a-custom-hook-for-translations-in-client-components"
+        },
+        {
+          "level": 3,
+          "text": "Update your root layout to setup i18n",
+          "raw": "Update your root layout to setup i18n",
+          "slug": "update-your-root-layout-to-setup-i18n"
+        },
+        {
+          "level": 3,
+          "text": "Extract and compile messages",
+          "raw": "Extract and compile messages",
+          "slug": "extract-and-compile-messages"
+        },
+        {
+          "level": 3,
+          "text": "Simple component to change locale",
+          "raw": "Simple component to change locale",
+          "slug": "simple-component-to-change-locale"
+        },
+        {
+          "level": 2,
+          "text": "Add Translations for secondary languages",
+          "raw": "Add Translations for secondary languages",
+          "slug": "add-translations-for-secondary-languages"
+        }
+      ]
+    }
+  ]
+}
