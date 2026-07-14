@@ -74,8 +74,6 @@ interface MdxRendererProps {
 }
 
 export const MdxRenderer: FC<MdxRendererProps> = ({ source }) => {
-  console.log(source);
-
   return (
     <div className="prose prose-zinc dark:prose-invert max-w-none">
       <MDXRemote
