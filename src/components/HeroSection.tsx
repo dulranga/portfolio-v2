@@ -9,63 +9,59 @@ const mailTo = `mailto:hello@dulranga.dev?subject=${encodeURIComponent(mailSubje
 export default function HeroSection() {
   return (
     <div className="p-gap mx-auto">
-      <section className="grid gap-2 min-h-[60vh] p-8 md:p-12 lg:p-24 rounded-default relative border border-border overflow-hidden ">
-        <div className="self-center">
+      <section className="grid place-items-center sm:place-items-start gap-4 sm:min-h-[60vh] p-8 md:p-12 lg:p-24 rounded-default relative border border-border overflow-hidden ">
+        <div className="self-center contents sm:block sm:space-y-4">
           <IconsBackground />
           {/* Left Column - Text Content */}
-          <div className="flex flex-col justify-center space-y-6 max-w-5xl">
-            <div className="space-y-2">
-              <h1 className="text-4xl font-bold leading-16 md:text-5xl lg:text-8xl">
-                Hi, I'm Dulranga
-              </h1>
-              <p className="text-xl font-semibold text-muted-foreground md:text-2xl"></p>
-            </div>
-            <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg font-medium">
-              I have been developing web applications for over 4 years, and I am
-              passionate about building performant and scalable applications. I
-              always look for new challenges and opportunities to learn and grow
-              as a developer.
-            </p>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Button asChild size="lg">
-                <Link href={mailTo}>Write a mail</Link>
-              </Button>
-              <div className="flex gap-4">
-                <Link
-                  href="https://github.com/dulranga"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
-                  aria-label="GitHub"
-                >
-                  <Github className="size-5" />
-                </Link>
-                <Link
-                  href="https://linkedin.com/in/dulranga"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="size-5" />
-                </Link>
-                <Link
-                  href="https://twitter.com/dulrangaD"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="size-5" />
-                </Link>
-                <Link
-                  href="mailto:contact@dulranga.dev"
-                  className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
-                  aria-label="Email"
-                >
-                  <Mail className="size-5" />
-                </Link>
-              </div>
+
+          <h1 className="text-4xl font-bold leading-16 md:text-5xl lg:text-8xl">
+            Hi, I'm Dulranga
+          </h1>
+          <p className="max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg font-medium">
+            I have been developing web applications for over 4 years, and I am
+            passionate about building performant and scalable applications. I
+            always look for new challenges and opportunities to learn and grow
+            as a developer.
+          </p>
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center ">
+            <Button asChild size="lg">
+              <Link href={mailTo}>Write a mail</Link>
+            </Button>
+            <div className="flex gap-4">
+              <Link
+                href="https://github.com/dulranga"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
+                aria-label="GitHub"
+              >
+                <Github className="size-5" />
+              </Link>
+              <Link
+                href="https://linkedin.com/in/dulranga"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="size-5" />
+              </Link>
+              <Link
+                href="https://twitter.com/dulrangaD"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
+                aria-label="Twitter"
+              >
+                <Twitter className="size-5" />
+              </Link>
+              <Link
+                href="mailto:contact@dulranga.dev"
+                className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
+                aria-label="Email"
+              >
+                <Mail className="size-5" />
+              </Link>
             </div>
           </div>
           {/* Right Column - Visual Element */}

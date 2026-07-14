@@ -35,7 +35,7 @@ const mailTo = `mailto:hello@dulranga.dev?subject=${encodeURIComponent(mailSubje
 export function ContactSection() {
   return (
     <div className="p-gap mx-auto" id="contact">
-      <section className="relative overflow-hidden rounded-default border border-border px-6 py-10 shadow-sm md:px-10 md:py-12 lg:px-12">
+      <section className="relative overflow-hidden rounded-default border border-border px-4 py-8 sm:px-6 sm:py-10 md:px-10 md:py-12 lg:px-12">
         <div className="relative grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div className="space-y-5">
             <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">
