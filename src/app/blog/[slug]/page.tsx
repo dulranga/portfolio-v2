@@ -1,4 +1,5 @@
 import { MdxRenderer } from "~/components/MdxRenderer";
+import { getContentTableOfContents } from "~/lib/content-index";
 import { getAllPostSlugs, getPostBySlug } from "~/lib/blog";
 
 // Dynamic params for static generation
@@ -18,6 +19,9 @@ export default async function BlogPostPage({
 
   // Get the post content without frontmatter using gray-matter
   const post = getPostBySlug(slug);
+  const tableOfContents = getContentTableOfContents("src/content/posts", slug);
 
-  return <MdxRenderer source={post.content} />;
+  return (
+    <MdxRenderer source={post.content} tableOfContents={tableOfContents} />
+  );
 }

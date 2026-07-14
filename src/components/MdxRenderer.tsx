@@ -5,6 +5,7 @@ import rehypePrettyCode, { type Options } from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+import type { ContentIndexHeading } from "~/lib/content-index";
 import { Pre } from "./Pre";
 
 const rehypeOptions: Options = {
@@ -65,19 +66,63 @@ const rehypeScrollableMath = () => {
   };
 };
 
+const headingTagNames = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
+
+const rehypeHeadingIds = (tableOfContents: ContentIndexHeading[] = []) => {
+  return function transformer(tree: any) {
+    let headingIndex = 0;
+
+    function visit(node: any) {
+      if (!node || typeof node !== "object") {
+        return;
+      }
+
+      if (
+        node.type === "element" &&
+        typeof node.tagName === "string" &&
+        headingTagNames.has(node.tagName)
+      ) {
+        const heading = tableOfContents[headingIndex];
+
+        if (heading) {
+          node.properties = {
+            ...node.properties,
+            id: heading.slug,
+          };
+        }
+
+        headingIndex += 1;
+      }
+
+      if (Array.isArray(node.children)) {
+        node.children.forEach(visit);
+      }
+    }
+
+    visit(tree);
+
+    return tree;
+  };
+};
+
 const components = {
   pre: Pre,
 };
 
 interface MdxRendererProps {
   source: string;
+  tableOfContents?: ContentIndexHeading[];
 }
 
-export const MdxRenderer: FC<MdxRendererProps> = ({ source }) => {
-  console.log(source);
-
+export const MdxRenderer: FC<MdxRendererProps> = ({
+  source,
+  tableOfContents,
+}) => {
   return (
-    <div className="prose prose-zinc dark:prose-invert max-w-none">
+    <div
+      className="prose prose-zinc dark:prose-invert max-w-none"
+      data-toc-count={tableOfContents?.length ?? 0}
+    >
       <MDXRemote
         source={source}
         options={{
@@ -85,6 +130,7 @@ export const MdxRenderer: FC<MdxRendererProps> = ({ source }) => {
             remarkPlugins: [remarkMath, remarkGfm],
             rehypePlugins: [
               rehypeSlug,
+              rehypeHeadingIds(tableOfContents),
               rehypeKatex,
               rehypeScrollableMath,
               [rehypePrettyCode, rehypeOptions],
