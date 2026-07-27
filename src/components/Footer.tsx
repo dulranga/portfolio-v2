@@ -18,7 +18,7 @@ const socialLinks = [
     icon: Twitter,
   },
   {
-    href: "mailto:contact@dulranga.dev",
+    href: "mailto:hi@dulranga.dev",
     label: "Email",
     icon: Mail,
   },

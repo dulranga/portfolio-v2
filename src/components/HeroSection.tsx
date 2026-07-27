@@ -56,7 +56,7 @@ export default function HeroSection() {
                 <Twitter className="size-5" />
               </Link>
               <Link
-                href="mailto:contact@dulranga.dev"
+                href="mailto:hi@dulranga.dev"
                 className="flex size-10 items-center justify-center rounded-full border border-border bg-card transition-all hover:bg-accent"
                 aria-label="Email"
               >
