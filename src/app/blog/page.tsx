@@ -1,9 +1,77 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-import { BlogSearch } from "~/components/BlogSearch";
+import { BlogSearch } from "~/components/blog-search";
 import { Button } from "~/components/ui/button";
 import { getAllPosts, type PostMetadata } from "~/lib/blog";
 import { getBlogSearchPosts } from "~/lib/blog-search-data";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const posts = getAllPosts();
+  const searchPosts = getBlogSearchPosts();
+  const keywordSet = new Set<string>([
+    "blog",
+    "articles",
+    "frontend development",
+    "web development",
+    "react",
+    "next.js",
+    "typescript",
+  ]);
+
+  for (const post of posts) {
+    keywordSet.add(post.title);
+    keywordSet.add(post.description);
+
+    for (const tag of post.tags ?? []) {
+      keywordSet.add(tag);
+    }
+  }
+
+  for (const post of searchPosts) {
+    for (const heading of post.headings) {
+      keywordSet.add(heading.text);
+    }
+  }
+
+  return {
+    title: "Blog | Dulranga Dhawanitha",
+    description:
+      "Read articles on algorithms, SQL, recursion, internationalization, and practical frontend development notes.",
+    keywords: Array.from(keywordSet),
+    authors: [{ name: "Dulranga Dhawanitha" }],
+    creator: "Dulranga Dhawanitha",
+    publisher: "Dulranga Dhawanitha",
+    alternates: {
+      canonical: "/blog",
+    },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: "/blog",
+      title: "Blog | Dulranga Dhawanitha",
+      description:
+        "Read articles on algorithms, SQL, recursion, internationalization, and practical frontend development notes.",
+      siteName: "Dulranga Dhawanitha Portfolio",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Dulranga Dhawanitha Blog",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Blog | Dulranga Dhawanitha",
+      description:
+        "Read articles on algorithms, SQL, recursion, internationalization, and practical frontend development notes.",
+      images: ["/og-image.png"],
+      creator: "@dulrangaD",
+    },
+  };
+}
 
 export default async function BlogPage({
   searchParams,
