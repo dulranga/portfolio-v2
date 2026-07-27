@@ -30,7 +30,7 @@ const contactMethods = [
 ];
 
 const mailSubject = "Hello Dulranga, let's connect";
-const mailTo = `mailto:hello@dulranga.dev?subject=${encodeURIComponent(mailSubject)}`;
+const mailTo = `mailto:hi@dulranga.dev?subject=${encodeURIComponent(mailSubject)}`;
 
 export function ContactSection() {
   return (

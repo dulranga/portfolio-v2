@@ -1,5 +1,3 @@
-import type { ContentIndexHeading } from "~/lib/content-index";
-
 type GeneratedBlogFrontmatter = {
     title: string;
     date: string;
@@ -8,11 +6,12 @@ type GeneratedBlogFrontmatter = {
     tags?: string[];
 };
 
-type GeneratedBlogEntry = {
+export interface BlogSearchHeading {
+    level: number;
+    text: string;
+    raw: string;
     slug: string;
-    frontmatter: GeneratedBlogFrontmatter;
-    headings: ContentIndexHeading[];
-};
+}
 
 export interface BlogSearchPost {
     slug: string;
@@ -21,12 +20,12 @@ export interface BlogSearchPost {
     description: string;
     author?: string;
     tags: string[];
-    headings: ContentIndexHeading[];
+    headings: BlogSearchHeading[];
 }
 
 export interface BlogSearchResult extends BlogSearchPost {
     score: number;
-    matchedHeading?: ContentIndexHeading;
+    matchedHeading?: BlogSearchHeading;
     matchedTag?: string;
 }
 
@@ -79,10 +78,10 @@ function scoreTextMatch(
 }
 
 function getHeadingMatch(
-    headings: ContentIndexHeading[],
+    headings: BlogSearchHeading[],
     query: string,
     tokens: string[],
-): ContentIndexHeading | undefined {
+): BlogSearchHeading | undefined {
     return headings.find((heading) => {
         const normalizedHeading = normalizeSearchText(heading.text);
 
