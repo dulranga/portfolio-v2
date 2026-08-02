@@ -18,6 +18,20 @@ export interface Post extends PostMetadata {
     content: string;
 }
 
+export function sortBlogPostsByDate<T extends { date: string; title: string }>(posts: T[]): T[] {
+    return posts.sort((left, right) => {
+        if (left.date < right.date) {
+            return 1;
+        }
+
+        if (left.date > right.date) {
+            return -1;
+        }
+
+        return left.title.localeCompare(right.title);
+    });
+}
+
 /**
  * Get all posts from the content directory
  * Returns array of post metadata sorted by date (newest first)
@@ -42,12 +56,7 @@ export function getAllPosts(): PostMetadata[] {
             };
         });
 
-    return allPostsData.sort((a, b) => {
-        if (a.date < b.date) {
-            return 1;
-        }
-        return -1;
-    });
+    return sortBlogPostsByDate(allPostsData);
 }
 
 /**

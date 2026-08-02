@@ -7,13 +7,15 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import type { ContentIndexHeading } from "~/lib/content-index";
 import { Pre } from "./Pre";
+import rehypeCallouts from "rehype-callouts";
 
 const rehypeOptions: Options = {
   theme: {
     light: "one-light",
     dark: "one-dark-pro",
   },
-  keepBackground: false,
+  keepBackground: true,
+
   // Enable horizontal scrolling for LaTeX blocks
   defaultLang: "text",
 };
@@ -132,6 +134,7 @@ export const MdxRenderer: FC<MdxRendererProps> = ({
               rehypeSlug,
               rehypeHeadingIds(tableOfContents),
               rehypeKatex,
+              rehypeCallouts,
               rehypeScrollableMath,
               [rehypePrettyCode, rehypeOptions],
             ],

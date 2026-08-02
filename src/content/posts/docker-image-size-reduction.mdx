@@ -1,0 +1,237 @@
+---
+title: Docker Images can be reduced 10x
+date: 2026-08-02
+description: Learn how the docker image can be reduced much more than what you have now.
+author: Dulranga Dhawanitha
+tags:
+  - optimization
+  - docker
+  - nextjs
+---
+Using docker images for deploying web applications is an standard thing in the industry. But most of the time developers get much higher docker image sizes **(1-2 GB)** than it actually needs to be. 
+
+## Why it gets so big?
+
+lets take a look at this quick and easy docker image below
+```dockerfile
+FROM node:20
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+```
+$ docker images demo-build         
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+demo-build   latest    372ae8ddb34c   9 minutes ago   2.63GB
+```
+
+When you run `docker buiild -t <your_tag> .` it copies everything into the docker base image, run `npm install` then, build and bundle the application. After that, the port `3000` is exposed.
+The image can be run with the provided `CMD` command. 
+
+Can you remove any of these steps? No. The correct question is *Do you need "Everything" in the docker image to run the application?*
+If your application has a bundler, the `node_modules`, source code, other dependency codes are all bundled into the bundler output. So they are not required. 
+
+## Major forgetting factor
+
+> [!info]
+>Docker does not automatically "NOT copy" files mentioned in `.gitignore`
+
+A lot of devs forget to include a `.dockerignore` file when setting up docker for applications. Most of time this is due to the docker integration is done quite after the project is initialized and they have already setup `.gitignore` 
+
+`COPY . .`   
+This command copies everything in the users codebase into the base image working directory. Everything means — node modules, local build artifacts, sensitive information that only should be injected in runtime etc. 
+
+So you need something similar to `.gitignore`, called `.dockerignore`
+It is pretty similar to `.gitignore` but you can also remove `.git` folder from docker image. This also helps for size reduction. 
+
+Example `.dockerignore` for a nextjs project
+```dockerignore title="~/.dockerignore"
+# Ignore node_modules and build files
+node_modules 
+out 
+dist
+ 
+npm-debug.log 
+README.md 
+.next 
+!.next/static 
+!.next/standalone 
+
+# Ignore logs and temporary files
+*.log
+*.lock
+*.tmp
+
+# Ignore git and environment files
+.git
+.env.local
+.env.*
+```
+
+>[!NOTE]
+>Using `.dockerignore` has more benefits than just reducing size. for example, if you are developing using a Mac environment, your `node_modules` might not be compatible with the `node:20` base image which runs in a unix environment. `.dockerignore` fix this with a clean dependency install. 
+>`.dockerignore` is also essential to stop your `.env` credentials from leaking into the docker image itself. 
+
+## Multi Stage Build
+
+when we run `npm run build` it builds the application for the runtime, but after that, we only need the build artifacts. Node modules, source code information are redundant. 
+
+This is where building docker image with multiple steps comes in handy. We can only copy things we need to the next step and ditch all others. 
+
+![docker multi stage build|371](https://snipboard.io/Z7kMS6.jpg)
+
+
+## Other ways to reduce image size
+
+### 1. Choosing the best base image
+
+Instead of choosing a generic unix image like `ubuntu` which has a lot of generic purpose tools that are not required in your application, you always need to choose the bare minimum docker base image that has everything included to run your application but nothing else. 
+
+For projects that require javascript runtime, you can use `node:20-slim` (Slim edition), `node:20-alpine` (Alpine edition, which is even smaller), or use Bun Image — `oven/bun:1-alpine` which can drastically reduce size if your framework supports it. 
+
+### 2. Prune `node_modules` Junk
+
+Even after running `npm ci --omit=dev`, installed packages often ship with unused markdown files, tests, source maps, and metadata.
+
+- **Use `node-prune`:** A CLI utility specifically built to sweep `node_modules` and delete non-production files (like `.md`, `.ts`, `.map`, and `test/` folders). 
+- **In Dockerfile:**  
+	```dockerfile
+	RUN npx node-prune
+	```
+	_(This alone often trims 10%–30% off the `node_modules` directory)._
+
+### 3. Combine `RUN` Chains & Minimize Layers
+
+Every `RUN`, `COPY`, and `ADD` directive in a Dockerfile adds an image layer. 
+- so if you create files or install libraries in one `RUN` command and delete them in a _subsequent_ `RUN` command, **the space is still consumed in the previous layer**. 
+- Always chain environment setup and cleanup into a single `RUN` line using `&&`: 
+    ```dockerfile
+    # Bad (saves no space)
+    RUN apt-get update && apt-get install -y build-essential
+    RUN rm -rf /var/lib/apt/lists/*
+    
+    # Good (keeps layer slim)
+    RUN apt-get update && apt-get install -y build-essential \
+        && rm -rf /var/lib/apt/lists/*
+    ```
+
+Thats about what we can achieve with only from docker itself. They rest is up to the framework or yourself. 
+
+## Framework specific optimizations
+
+Most of frameworks like NextJS, NuxtJS, Astro, SvelteKit offer docker specific build methods to build optimized images. Or more generally, "Container specific build options". These usually provide extra-ordinary optimizations for containerized applications. Most of the size reductions can achieve using these. 
+
+for Nextjs, they offer a build type called `standalone`, use this in `next.config.ts`
+
+```ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+	/* config options here */
+	output: "standalone",
+	/* ... */
+}; 
+export default nextConfig;
+```
+
+In this build configuration, everything required to run the application will be built into `.next/standalone` folder with an entry `server.js` file
+
+Only 3 things required for the application, 
+
+| **Source File / Directory** | **Target Container Location** | **Purpose**                                                    |
+| --------------------------- | ----------------------------- | -------------------------------------------------------------- |
+| `.next/standalone`          | `/app/`                       | The lightweight server (`server.js`) and pruned `node_modules` |
+| `.next/static`              | `/app/.next/static`           | Compiled JavaScript chunks, CSS, and client assets             |
+| `public`                    | `/app/public`                 | Public static assets (images, favicon, fonts)                  |
+
+### Key Benefits for Docker Images
+
+- Standard Next.js builds with full `node_modules` typically produce Docker images ranging from **800 MB to 1.5 GB**. A `standalone` build drops the image down to **100 MB – 200 MB**. 
+- You don't need `npm`, `yarn`, `pnpm`, or `bun` installed in your final Docker container—`node server.js` runs directly on the bare runtime. 
+-  Spawning a simple `node server.js` process is faster than booting up the full `next start` CLI wrapper.
+- Dropping dev dependencies, package managers, and raw source code from the final layer removes hundreds of potential CVEs from production environments.
+
+```
+$ docker images optimized-build
+REPOSITORY        TAG       IMAGE ID       CREATED         SIZE
+optimized-build   latest    40e56d14644e   5 minutes ago   222MB
+```
+
+###  Important Caveat: Static Asset Separation
+
+By design, Next.js **does not copy static assets** into `.next/standalone` to keep the bundle size isolated. This is due to those can be served via CDNs for maximum optimization. 
+You **must** manually copy `.next/static` and `public` in your Dockerfile, or serve them via a CDN/Nginx layer in front of your container:
+
+```dockerfile
+# Critical step in your final Docker stage:
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+```
+
+
+## Complete NextJS Optimized Dockerfile
+
+```dockerfile
+FROM node:20-slim AS base
+
+RUN apt-get update 
+
+# Install dependencies including dev for build
+FROM base AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# build app
+FROM base AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+ENV NEXT_TELEMETRY_DISABLED=1
+RUN npm run build
+
+# production image
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3010
+ENV HOSTNAME=0.0.0.0
+
+# Set correct permissions
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+
+# Make sure cache folder exists
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next
+
+# copy only what's needed to run
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3010
+
+# server.js is created by next build from the standalone output
+
+CMD [ "node", "server.js"]
+```
+
+
+More detailed information — https://nextjs.org/docs/app/getting-started/deploying#docker

@@ -1,7 +1,89 @@
 {
-  "generatedAt": "2026-07-14T08:04:36.144Z",
+  "generatedAt": "2026-08-02T09:55:54.597Z",
   "sourceDirectory": "src/content/posts",
   "posts": [
+    {
+      "slug": "docker-image-size-reduction",
+      "frontmatter": {
+        "title": "Docker Images can be reduced 100x",
+        "date": "2026-08-02T00:00:00.000Z",
+        "description": "Learn how the docker image can be reduced much more than what you have now.",
+        "author": "Dulranga Dhawanitha",
+        "tags": [
+          "optimization",
+          "docker",
+          "nextjs"
+        ]
+      },
+      "headings": [
+        {
+          "level": 2,
+          "text": "Why it gets so big?",
+          "raw": "Why it gets so big?",
+          "slug": "why-it-gets-so-big"
+        },
+        {
+          "level": 2,
+          "text": "Major forgetting factor",
+          "raw": "Major forgetting factor",
+          "slug": "major-forgetting-factor"
+        },
+        {
+          "level": 2,
+          "text": "Multi Stage Build",
+          "raw": "Multi Stage Build",
+          "slug": "multi-stage-build"
+        },
+        {
+          "level": 2,
+          "text": "Other ways to reduce image size",
+          "raw": "Other ways to reduce image size",
+          "slug": "other-ways-to-reduce-image-size"
+        },
+        {
+          "level": 3,
+          "text": "1. Choosing the best base image",
+          "raw": "1. Choosing the best base image",
+          "slug": "1-choosing-the-best-base-image"
+        },
+        {
+          "level": 3,
+          "text": "2. Prune `node_modules` Junk",
+          "raw": "2. Prune `node_modules` Junk",
+          "slug": "2-prune-node-modules-junk"
+        },
+        {
+          "level": 3,
+          "text": "3. Combine `RUN` Chains & Minimize Layers",
+          "raw": "3. Combine `RUN` Chains & Minimize Layers",
+          "slug": "3-combine-run-chains-minimize-layers"
+        },
+        {
+          "level": 2,
+          "text": "Framework specific optimizations",
+          "raw": "Framework specific optimizations",
+          "slug": "framework-specific-optimizations"
+        },
+        {
+          "level": 3,
+          "text": "Key Benefits for Docker Images",
+          "raw": "Key Benefits for Docker Images",
+          "slug": "key-benefits-for-docker-images"
+        },
+        {
+          "level": 3,
+          "text": "Important Caveat: Static Asset Separation",
+          "raw": "Important Caveat: Static Asset Separation",
+          "slug": "important-caveat-static-asset-separation"
+        },
+        {
+          "level": 2,
+          "text": "Complete NextJS Optimized Dockerfile",
+          "raw": "Complete NextJS Optimized Dockerfile",
+          "slug": "complete-nextjs-optimized-dockerfile"
+        }
+      ]
+    },
     {
       "slug": "optimizing-range-updates",
       "frontmatter": {

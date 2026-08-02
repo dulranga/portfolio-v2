@@ -3,6 +3,7 @@ import path from "node:path";
 
 import type { ContentIndexHeading } from "~/lib/content-index";
 import type { BlogSearchPost } from "~/lib/blog-search";
+import { sortBlogPostsByDate } from "./blog";
 
 type GeneratedBlogFrontmatter = {
     title: string;
@@ -52,15 +53,5 @@ function readBlogSearchPosts(): BlogSearchPost[] {
 }
 
 export function getBlogSearchPosts(): BlogSearchPost[] {
-    return readBlogSearchPosts().sort((left, right) => {
-        if (left.date < right.date) {
-            return 1;
-        }
-
-        if (left.date > right.date) {
-            return -1;
-        }
-
-        return left.title.localeCompare(right.title);
-    });
+    return sortBlogPostsByDate(readBlogSearchPosts());
 }
